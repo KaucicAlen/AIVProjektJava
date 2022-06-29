@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:jsf="http://xmlns.jcp.org/jsf"
+	  xmlns:p="http://primefaces.org/ui"
+	 >
+
+<h:head>
+	<meta charset="UTF-8" />
+	<title>Sistem e-vinjete</title>
+	<link rel="stylesheet" href="bootstrap.min.css"/>
+
+</h:head>
+
+<h:body>
+
+<f:view>
+	<nav class="navbar navbar-expand-lg navbar-light bg-light">
+		<div class="container-fluid">
+			<a class="navbar-brand" href="#">Sistem E-Vinjete</a>
+			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+
+			<div class="collapse navbar-collapse" id="navbarColor03">
+				<ul class="navbar-nav me-auto">
+					<li class="nav-item"><a class="nav-link" href="#{facesContext.externalContext.applicationContextPath}/faces/nakup.xhtml?registracija=NULL" style="align-content: center" id="dodaj">Dodajanje nakup</a></li>
+					<li class="nav-item"><a class="nav-link" href="#{facesContext.externalContext.applicationContextPath}/faces/urejanje.xhtml?naziv=NULL" style="align-content: center" id="urejanje">Dodajanje e-vinjete</a></li>
+					<li class="nav-item"><a class="nav-link" href="faces/vse.xhtml" style="align-content: center" id="vse">Vse e-vinjete</a></li>
+					<li class="nav-item"><a class="nav-link" href="faces/vseNakupe.xhtml" style="align-content: center" id="vsinakupe">Vsi Nakupi</a></li>
+					<li class="nav-item"><a class="nav-link" href="faces/prodajalciNakup.xhtml" style="align-content: center" id="nakupe">ProdajaPoProdajalci</a></li>
+					<li class="nav-item"><a class="nav-link" href="faces/preveri.xhtml" style="align-content: center" id="preveri">Preverjanje</a></li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+
+
+	<br/>
+	<f:metadata>
+		<f:viewParam name="registracija" value="#{demo.vnosRegistracija}" />
+	</f:metadata>
+
+	<h:form styleClass="container" >
+
+
+	Registracija:       <h:inputText id="prod" value="#{demo.vnosRegistracija}"  /><br/><br/>
+
+
+	<h:form action="preveri.xhtml">
+		             <h:commandButton value="Preveri" action="#{demo.preveri(demo.vnosRegistracija)}"/>
+
+
+
+
+
+	</h:form>
+	</h:form>
+
+
+
+
+	<h:dataTable value="#{demo.info}" var="n" border="1" cellpadding="3em">
+		<h:column>
+			<h:outputText value="#{n}"/>
+		</h:column>
+	</h:dataTable>
+
+
+	#{demo.info.clear()};
+</f:view>
+</h:body>
+
+</html>
+
+
+
+

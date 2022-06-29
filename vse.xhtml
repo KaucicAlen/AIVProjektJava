@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<meta charset="UTF-8" />
+	<title>Sistem E-Vinjete</title>
+	<link rel="stylesheet" href="bootstrap.min.css"/>
+</h:head>
+
+<h:body>
+	<f:view>
+		<nav class="navbar navbar-expand-lg navbar-light bg-light">
+			<div class="container-fluid">
+				<a class="navbar-brand" href="#">Sistem E-Vinjete</a>
+				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+
+				<div class="collapse navbar-collapse" id="navbarColor04">
+					<ul class="navbar-nav me-auto">
+						<li class="nav-item"><a class="nav-link" href="#{facesContext.externalContext.applicationContextPath}/faces/nakup.xhtml?registracija=NULL" style="align-content: center" id="dodaj">Dodajanje nakup</a></li>
+						<li class="nav-item"><a class="nav-link" href="#{facesContext.externalContext.applicationContextPath}/faces/urejanje.xhtml?naziv=NULL" style="align-content: center" id="urejanje">Dodajanje e-vinjete</a></li>
+						<li class="nav-item"><a class="nav-link" href="faces/vse.xhtml" style="align-content: center" id="vse">Vse e-vinjete</a></li>
+						<li class="nav-item"><a class="nav-link" href="faces/vseNakupe.xhtml" style="align-content: center" id="vsinakupe">Vsi Nakupi</a></li>
+						<li class="nav-item"><a class="nav-link" href="faces/prodajalciNakup.xhtml" style="align-content: center" id="nakupe">ProdajaPoProdajalci</a></li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+
+		<br/>
+		<h:form styleClass="container">
+
+			<h:dataTable value="#{demo.vseVinjete}" var="v" border="1" cellpadding="1em">
+				<h:column><f:facet name = "header">Naziv E-Vinjete</f:facet>
+					<h:link value="#{v.nazivVinjete}" outcome="podrobnosti">
+						<f:param name="naziv" value="#{v.nazivVinjete}" />
+					</h:link>
+				</h:column>
+
+				<h:column><f:facet name = "header">Veljavnost</f:facet>#{v.veljavnost}</h:column>
+				<h:column> <f:facet name = "header">Tip Vozilo</f:facet>
+					<h:outputText value="Kombi" rendered="#{v.tipVozila eq 'Kombi'}"/>
+					<h:outputText value="Auto" rendered="#{v.tipVozila eq 'Auto'}"/>
+					<h:outputText value="Autobus" rendered="#{v.tipVozila eq 'Autobus'}"/>
+				</h:column>
+				<h:column><f:facet name = "header">Urejanje</f:facet>
+					<h:link value="Uredi" outcome="urejanje">
+						<f:param name="naziv" value="#{v.nazivVinjete}" />
+					</h:link>
+				</h:column>
+
+				<h:column><f:facet name = "header">Izbrisi</f:facet>
+					<h:commandLink value="Izbriši" onclick="if(!confirm('Ste prepričani?')) return false;" actionListener="#{demo.izbrisiVinjeta(v)}" />
+
+				</h:column>
+
+			</h:dataTable>
+
+		</h:form>
+	</f:view>
+</h:body>
+
+</html>

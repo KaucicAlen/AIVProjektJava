@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:jsf="http://xmlns.jcp.org/jsf"
+	  xmlns:p="http://primefaces.org/ui"
+	 >
+
+<h:head>
+	<meta charset="UTF-8" />
+	<title>Sistem e-vinjete</title>
+	<link rel="stylesheet" href="bootstrap.min.css"/>
+
+</h:head>
+
+<h:body>
+
+<f:view>
+	<nav class="navbar navbar-expand-lg navbar-light bg-light">
+		<div class="container-fluid">
+			<a class="navbar-brand" href="#">Sistem E-Vinjete</a>
+			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+
+			<div class="collapse navbar-collapse" id="navbarColor03">
+				<ul class="navbar-nav me-auto">
+					<li class="nav-item"><a class="nav-link" href="#{facesContext.externalContext.applicationContextPath}/faces/nakup.xhtml?registracija=NULL" style="align-content: center" id="dodaj">Dodajanje nakup</a></li>
+					<li class="nav-item"><a class="nav-link" href="#{facesContext.externalContext.applicationContextPath}/faces/urejanje.xhtml?naziv=NULL" style="align-content: center" id="urejanje">Dodajanje e-vinjete</a></li>
+					<li class="nav-item"><a class="nav-link" href="faces/vse.xhtml" style="align-content: center" id="vse">Vse e-vinjete</a></li>
+					<li class="nav-item"><a class="nav-link" href="faces/vseNakupe.xhtml" style="align-content: center" id="vsinakupe">Vsi Nakupi</a></li>
+					<li class="nav-item"><a class="nav-link" href="faces/prodajalciNakup.xhtml" style="align-content: center" id="nakupe">ProdajaPoProdajalci</a></li>
+					<li class="nav-item"><a class="nav-link" href="faces/preveri.xhtml" style="align-content: center" id="preveri">Preverjanje</a></li>
+
+				</ul>
+			</div>
+		</div>
+	</nav>
+
+
+	<br/>
+
+	<f:metadata>
+		<f:viewParam name="registracija" value="#{demo.izbranId}" />
+	</f:metadata>
+	<div style="display: none;">
+		#{demo.izbranNaziv=demo.izbranNakup.tipVinjeta.nazivVinjete}</div>
+
+	<h:form styleClass="container">
+
+		<br/>
+	Registracija:     <h:inputText id="r_reg" value="#{demo.izbranNakup.registracija}" validatorMessage="Vnesite ustrezno registracijo">
+	<f:validateRequired />
+     </h:inputText> * <h:message for="r_reg" style="color:#d73e3e" /><br/><br/>
+
+	Prodajalec:       <h:inputText id="prod" value="#{demo.izbranNakup.prodajalec}" /><br/><br/>
+
+	Tip Vozila:       <h:selectOneMenu value="#{demo.izbranNakup.tipVozila}">
+   			<f:selectItem itemValue="Kombi" itemLabel="Kombi" />
+   			<f:selectItem itemValue="Auto" itemLabel="Auto" />
+   			<f:selectItem itemValue="Autobus" itemLabel="Autobus" />
+   		</h:selectOneMenu><br/><br/>
+
+	Datum Nakupa:     <input type="date" jsf:value="#{demo.izbranNakup.datumNakupa.time}">
+		<f:convertDateTime pattern="yyyy-MM-dd"/></input>
+	<br/><br/>
+
+	Veljavnost:       <input type="date" jsf:value="#{demo.izbranNakup.datumVeljavnosti.time}">
+		<f:convertDateTime pattern="yyyy-MM-dd"/>
+	</input><br/><br/>
+
+	Tip Vinjeta:  <h:column>
+		<h:selectOneMenu value="#{demo.izbranNaziv}"
+						 styleClass="form-control">
+			<f:selectItems value="#{demo.vseVinjete}" var="tipVinjeta"
+						   itemLabel="#{tipVinjeta.nazivVinjete}" itemValue="#{tipVinjeta.nazivVinjete}"/>
+		</h:selectOneMenu>
+           </h:column>
+
+		<br/><br/>
+		             <h:commandButton value="Shranii" action="#{demo.shraniNakup()}"/>
+
+</h:form>
+</f:view>
+</h:body>
+
+</html>
+
+
+
+
